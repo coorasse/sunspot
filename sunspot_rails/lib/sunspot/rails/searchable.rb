@@ -90,11 +90,11 @@ module Sunspot #:nodoc:
 
             unless options[:auto_index] == false
               before_save :mark_for_auto_indexing_or_removal
-              after_save :perform_index_tasks
+              after_commit :perform_index_tasks
             end
 
             unless options[:auto_remove] == false
-              after_destroy do |searchable|
+              after_commit do |searchable|
                 searchable.remove_from_index
               end
             end
